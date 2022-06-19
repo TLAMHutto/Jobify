@@ -1,24 +1,21 @@
-import { useState, useEffect } from "react"
-import Logo from '../components/Logo';
-import Wrapper from "../assests/wrappers/RegisterPage"
-import FormRow from "../components/FormRow"
-import Alert from "../components/Alert"
-import { useAppContext } from "../context/appContext";
-
+import { useState, useEffect } from 'react'
+import { Logo, FormRow, Alert } from '../components'
+import Wrapper from '../assets/wrappers/RegisterPage'
+import { useAppContext } from '../context/appContext'
+import { useNavigate } from 'react-router-dom'
 const initialState = {
-  name: "",
-  email: "",
-  password: "",
-  isMember: false,
-  
+  name: '',
+  email: '',
+  password: '',
+  isMember: true,
 }
 
-
-
 const Register = () => {
+  const navigate = useNavigate()
   const [values, setValues] = useState(initialState)
-  const {isLoading, showAlert, displayAlert} = useAppContext()
-  
+  const { user, isLoading, showAlert, displayAlert, setupUser } =
+    useAppContext()
+
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember })
   }
@@ -28,43 +25,76 @@ const Register = () => {
   }
   const onSubmit = (e) => {
     e.preventDefault()
-    const { name, email, password, isMember } = values;
-    if (!email || !password || (!name && !isMember)) {
+    const { name, email, password, isMember } = values
+    if (!email || !password || (!isMember && !name)) {
       displayAlert()
       return
     }
-    console.log(values)
+    const currentUser = { name, email, password }
+    if (isMember) {
+      setupUser({
+        currentUser,
+        endPoint: 'login',
+        alertText: 'Login Successful! Redirecting...',
+      })
+    } else {
+      setupUser({
+        currentUser,
+        endPoint: 'register',
+        alertText: 'User Created! Redirecting...',
+      })
+    }
   }
-  return (
-    <Wrapper className="full-page">
-      <form className="form" onSubmit={onSubmit}>
-        <Logo/>
-        <h3>{values.isMember? 'Login':'Register'}</h3>
-        {showAlert && <Alert />}
-        <div className="form-row">
-        {!values.isMember && (
-              <FormRow
-                type='text'
-                name='name'
-                value={values.name}
-                handleChange={handleChange}
-              />
-            )}
-          
-          <FormRow type='email' name='email' values={values.email} handleChange={handleChange}/>
-          <FormRow type='password' name='password' values={values.password} handleChange={handleChange}/>
-          <button type='submit' className="btn btn-block">Submit</button>
-          <p>
-            {values.isMember ? 'Not a member yet?' : 'Already a member?'}
-            <button type='button' onClick={toggleMember} className='member-btn'>
-        {values.isMember ? 'Register' : 'Login'}
-      </button>
-          </p> 
-        </div>
-      </form>
-      </Wrapper>
 
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/')
+      }, 3000)
+    }
+  }, [user, navigate])
+
+  return (
+    <Wrapper className='full-page'>
+      <form className='form' onSubmit={onSubmit}>
+        <Logo />
+        <h3>{values.isMember ? 'Login' : 'Register'}</h3>
+        {showAlert && <Alert />}
+        {/* name input */}
+        {!values.isMember && (
+          <FormRow
+            type='text'
+            name='name'
+            value={values.name}
+            handleChange={handleChange}
+          />
+        )}
+
+        {/* email input */}
+        <FormRow
+          type='email'
+          name='email'
+          value={values.email}
+          handleChange={handleChange}
+        />
+        {/* password input */}
+        <FormRow
+          type='password'
+          name='password'
+          value={values.password}
+          handleChange={handleChange}
+        />
+        <button type='submit' className='btn btn-block' disabled={isLoading}>
+          submit
+        </button>
+        <p>
+          {values.isMember ? 'Not a member yet?' : 'Already a member?'}
+          <button type='button' onClick={toggleMember} className='member-btn'>
+            {values.isMember ? 'Register' : 'Login'}
+          </button>
+        </p>
+      </form>
+    </Wrapper>
   )
 }
-
 export default Register

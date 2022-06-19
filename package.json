@@ -19,7 +19,6 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^6.4.0",
-    "interpolate-html-plugin": "^4.0.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
