@@ -24,6 +24,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "babel-loader": "^8.1.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
