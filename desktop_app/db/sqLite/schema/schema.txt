@@ -1,0 +1,13 @@
+CREATE SCHEMA sql_schema_main.sql;
+
+#schema
+    #company name
+    #job title
+    #job description
+    #location
+    #quals
+    #revised resume
+    #cover letter*
+    #date applied
+    #status
+    #follow up info(url)*

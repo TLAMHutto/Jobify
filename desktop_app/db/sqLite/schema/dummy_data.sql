@@ -1,0 +1,3 @@
+INSERT INTO job_data (company_name, job_title, job_description, location, qualifications, revised_resume, cover_letter, date_applied, status, follow_up_info) VALUES
+('TechCorp', 'Software Engineer', 'Develop and maintain software applications.', 'New York, NY', 'BSc in Computer Science', 'revised_resume.pdf', 'cover_letter.pdf', '2024-05-01', 'Applied', 'http://techcorp.com/followup'),
+('WebSolutions', 'Frontend Developer', 'Create and improve web interfaces.', 'San Francisco, CA', 'Experience with React.js', 'revised_resume.pdf', 'cover_letter.pdf', '2024-05-10', 'Interview Scheduled', 'http://websolutions.com/followup');

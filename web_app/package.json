@@ -10,9 +10,10 @@
     "build-client": "cd client && npm run build",
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build-client",
-    "server": "nodemon server --ignore client",
+    "mongo-server": "nodemon server --ignore client",
+    "desktop-download": "cd ../desktop_app/desktop_app_exe && python desktop_app_exe.py",
     "client": "npm start --prefix client",
-    "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
+    "start": "concurrently --kill-others-on-fail \"npm run mongo-server\" \"npm run desktop-download\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -30,6 +32,7 @@
     "express-mongo-sanitize": "^2.1.0",
     "express-rate-limit": "^6.0.4",
     "helmet": "^5.0.1",
+    "http-proxy-middleware": "^3.0.0",
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",

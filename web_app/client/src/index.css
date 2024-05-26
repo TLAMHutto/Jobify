@@ -144,7 +144,11 @@ ul {
   object-fit: cover;
 }
 /* buttons */
-
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
 .btn {
   cursor: pointer;
   color: var(--white);
